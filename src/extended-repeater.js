@@ -26,5 +26,6 @@ module.exports = function repeater(str, { repeatTimes = 0 , separator = '+', add
     return result + addition;
   }
   return result;
+  
 };
   

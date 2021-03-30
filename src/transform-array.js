@@ -1,42 +1,25 @@
 const CustomError = require("../extensions/custom-error");
 
 module.exports = function transform(arr) {
-  throw new CustomError('Not implemented');
+  //throw new CustomError('Not implemented');
   // remove line with error and write your code here
-  for(let i in arr){
-    if(typeof arr[i] == 'number') {
-      continue;
+  if(!Array.isArray(arr)) throw new Error('THROW');
+  //if(arr.length == 0) {return arr;}
+  else{
+    for(let i in arr){
+      if(arr[i] ===  "--discard-next"){
+        if(i === arr.length - 1) {arr.slice(i, 1);}
+        else{
+          arr.slice(i, 2);
+        }
+      }
+      if(arr[i] === "--discard-prev"){
+          arr.slice(i - 1, 2);
+
+      }
+      
     }
-    else {
-      if(arr[i] == '--discard-next' ){
-        if(arr[i + 2] == '--double-prev'){
-          continue;
-        }
-        else if(i != arr.length){
-          arr.splice(i + 1, 1);
-        }
-        arr.splice(i, 1);
-      }
-      else if(arr[i] == '--discard-prev'){
-        if(arr[i - 2] == '--double-next'){
-          continue;
-        }
-        if(i != 0){
-          arr.splice(i - 1, 1);
-        }
-        arr.splice(i, 1);
-      }
-      else if(arr[i] == '--double-next'){
-        if(arr[i + 2] == '--discard-prev'){
-          continue;
-        }
-      }
-      else if(arr[i] == '--double-prev'){
-        if(arr[i - 2] == '--discard-next'){
-          continue;
-        }
-      }
-    }
+    return arr;
   }
-  return arr;
-};
+}
+
